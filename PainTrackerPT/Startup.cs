@@ -10,7 +10,10 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
+using PainTrackerPT.Data.FollowUps.Repository;
 using PainTrackerPT.Models;
+using PainTrackerPT.Models.Followups;
+using PainTrackerPT.Repository;
 
 namespace PainTrackerPT
 {
@@ -33,7 +36,7 @@ namespace PainTrackerPT
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-         
+
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
@@ -41,6 +44,8 @@ namespace PainTrackerPT
                     //options.UseSqlServer(Configuration.GetConnectionString("PainTrackerPTContext")));
                     // Just for testing use the in memory database but in real testing, create  your own one.
                     options.UseInMemoryDatabase("PainTrackerPTContext"));
+            // FollowUpServices
+            services.AddScoped<IFollowUpRepository, FollowUpRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
